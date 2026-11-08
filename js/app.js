@@ -106,7 +106,9 @@ function countUp(el, to) {
 
 /* ---------- Supabase ---------- */
 const CONFIGURED = typeof SUPABASE_URL !== 'undefined' && !/ISI_/.test(SUPABASE_URL + SUPABASE_KEY) && typeof supabase !== 'undefined';
-const sb = CONFIGURED ? supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+const sb = CONFIGURED ? supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth: { storage: window.sessionStorage }
+}) : null;
 const BUCKET = 'files';
 const must = ({ data, error }) => { if (error) throw error; return data; };
 const fail = (e, msg) => { console.error(e); toast(msg || (e && e.message) || 'Terjadi kesalahan', 'err'); };
