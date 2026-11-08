@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mata Kuliah — KelasHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="blobs"><span></span><span></span><span></span></div>
+
+<nav class="nav"><div class="wrap">
+  <a href="index.html" class="logo"><i>🎓</i><span>Kelas<b>Hub</b></span></a>
+  <button class="burger" aria-label="Menu">☰</button>
+  <div class="links"></div>
+</div></nav>
+
+<section class="phead"><div class="wrap">
+  <div>
+    <span class="tag">🎓 Halaman Mata Kuliah</span>
+    <h1>Daftar <span class="grad">Mata Kuliah</span></h1>
+    <p>Mata kuliah di kelas ini beserta dosen pengampunya. Dipakai sebagai pilihan saat mengirim tugas dan mengunggah materi.</p>
+  </div>
+  <img src="img/matkul.svg" alt="Ilustrasi mata kuliah" style="background:linear-gradient(135deg,#e84393,#2563EB);border-radius:28px;padding:10px">
+</div></section>
+
+<main class="wrap">
+  <div class="stats" style="grid-template-columns:repeat(3,1fr)">
+    <div class="stat"><div class="ic" style="background:#DBEAFE">🎓</div><div><b id="c1">0</b><small>Mata kuliah</small></div></div>
+    <div class="stat"><div class="ic" style="background:#fff3d6">📝</div><div><b id="c2">0</b><small>Total tugas</small></div></div>
+    <div class="stat"><div class="ic" style="background:#e6efff">📚</div><div><b id="c3">0</b><small>Total materi</small></div></div>
+  </div>
+
+  <div class="note" style="margin-top:22px">🛡️ Mata kuliah dan dosen pengampunya ditentukan oleh <b>Admin</b>. Dosen hanya bisa mengirim tugas dan materi di mata kuliah yang ia ampu.</div>
+
+  <div class="sec-t"><h2>Daftar <span>Mata Kuliah</span></h2></div>
+  <div class="cgrid" id="list"></div>
+</main>
+
+<footer><div class="wrap"><b>KelasHub</b> · Kelas &amp; mata kuliah dikelola admin</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/matakuliah.js"></script>
+</body>
+</html>

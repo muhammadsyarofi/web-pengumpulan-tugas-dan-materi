@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kelola Kelas — KelasHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="blobs"><span></span><span></span><span></span></div>
+
+<nav class="nav"><div class="wrap">
+  <a href="admin.html" class="logo"><i>🎓</i><span>Kelas<b>Hub</b></span></a>
+  <button class="burger" aria-label="Menu">☰</button>
+  <div class="links"></div>
+</div></nav>
+
+<section class="phead"><div class="wrap">
+  <div>
+    <span class="tag">🛡️ Kelola Kelas</span>
+    <h1 id="ttl">Kelola <span class="grad">Kelas</span></h1>
+    <p>Tambahkan mata kuliah ke kelas ini, tunjuk dosen pengampunya, dan pantau anggota yang sudah bergabung dengan kode kelas.</p>
+    <div class="cta"><a class="btn sec" href="admin.html">← Semua kelas</a></div>
+  </div>
+  <img src="img/matkul.svg" alt="Ilustrasi mata kuliah" style="background:linear-gradient(135deg,#e84393,#2563EB);border-radius:28px;padding:10px">
+</div></section>
+
+<main class="wrap">
+  <div class="panel" id="head" style="margin-bottom:22px"></div>
+
+  <div class="stats">
+    <div class="stat"><div class="ic" style="background:#DBEAFE">🎓</div><div><b id="k1">0</b><small>Mata kuliah</small></div></div>
+    <div class="stat"><div class="ic" style="background:#d9fbef">🎒</div><div><b id="k2">0</b><small>Mahasiswa</small></div></div>
+    <div class="stat"><div class="ic" style="background:#e6efff">👩‍🏫</div><div><b id="k3">0</b><small>Dosen</small></div></div>
+    <div class="stat"><div class="ic" style="background:#fff3d6">📝</div><div><b id="k4">0</b><small>Tugas</small></div></div>
+  </div>
+
+  <div class="sec-t"><h2>Tambah <span>Mata Kuliah</span></h2></div>
+  <form class="formrow six" id="fAdd">
+    <div class="fg"><label>Nama mata kuliah *</label><input name="name" required maxlength="60" placeholder="Contoh: Basis Data"></div>
+    <div class="fg"><label>Kode (opsional)</label><input name="code" maxlength="12" placeholder="IF201"></div>
+    <div class="fg"><label>Dosen pengampu</label><select name="dosen" id="selDosen"></select></div>
+    <div class="fg"><label>Ikon</label><select name="emoji"><option>📘</option><option>💻</option><option>🌐</option><option>🗄️</option><option>🧮</option><option>🔬</option><option>🎨</option><option>⚖️</option><option>📊</option><option>🧠</option></select></div>
+    <div class="fg"><label>Warna</label><input type="color" name="color" value="#2563EB"></div>
+    <button class="btn" type="submit">＋ Tambah</button>
+  </form>
+  <div class="note hide" id="noDosen">👩‍🏫 Belum ada akun dosen. Minta dosen mendaftar (pilih <b>Daftar sebagai Dosen</b>), lalu mata kuliah ini bisa diberi pengampu.</div>
+
+  <div class="sec-t"><h2>Mata Kuliah &amp; <span>Pengampu</span></h2></div>
+  <div class="hist" id="cList"></div>
+
+  <div class="sec-t"><h2>Anggota <span>Kelas</span></h2></div>
+  <div class="hist" id="mList"></div>
+</main>
+
+<footer><div class="wrap"><b>KelasHub</b> · Kelas &amp; mata kuliah dikelola admin</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/kelola.js"></script>
+</body>
+</html>

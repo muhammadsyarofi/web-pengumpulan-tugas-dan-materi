@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 300">
+  <circle cx="160" cy="150" r="120" fill="#fff" opacity=".15"/>
+  <!-- building -->
+  <path d="M40 130L160 70l120 60z" fill="#fff"/>
+  <rect x="52" y="130" width="216" height="14" rx="3" fill="#e8e6fa"/>
+  <g fill="#fdcb6e"><rect x="68" y="148" width="26" height="80" rx="5"/><rect x="112" y="148" width="26" height="80" rx="5"/><rect x="182" y="148" width="26" height="80" rx="5"/><rect x="226" y="148" width="26" height="80" rx="5"/></g>
+  <rect x="148" y="170" width="24" height="58" rx="6" fill="#6c5ce7"/>
+  <rect x="40" y="228" width="240" height="18" rx="6" fill="#fff"/>
+  <rect x="28" y="246" width="264" height="14" rx="6" fill="#e8e6fa"/>
+  <circle cx="160" cy="102" r="12" fill="#6c5ce7"/><path d="M160 96v7l5 3" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- grad cap -->
+  <g transform="translate(230 30)"><path d="M32 4L2 18l30 14 30-14z" fill="#2d2766"/><path d="M14 26v12c10 8 28 8 36 0V26l-18 8z" fill="#6c5ce7"/><path d="M60 20v18" stroke="#fdcb6e" stroke-width="3" stroke-linecap="round"/></g>
+  <g fill="#fdcb6e"><circle cx="40" cy="60" r="6"/><circle cx="290" cy="190" r="5"/><path d="M60 100l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></g>
+</svg>

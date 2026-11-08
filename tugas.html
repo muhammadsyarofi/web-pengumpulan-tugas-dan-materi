@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pengumpulan Tugas — KelasHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="blobs"><span></span><span></span><span></span></div>
+
+<nav class="nav"><div class="wrap">
+  <a href="index.html" class="logo"><i>🎓</i><span>Kelas<b>Hub</b></span></a>
+  <button class="burger" aria-label="Menu">☰</button>
+  <div class="links"></div>
+</div></nav>
+
+<section class="phead"><div class="wrap">
+  <div>
+    <span class="tag">📝 Halaman Tugas</span>
+    <h1>Pengumpulan <span class="grad">Tugas</span></h1>
+    <p>Pantau deadline, lihat hitung mundur, lalu kirim file tugasmu sebelum waktunya habis. Dosen membuat dan menghapus tugas di mata kuliah yang ia ampu.</p>
+    <div class="cta"><button class="btn" id="btnNew">📤 Kirim Tugas Baru</button></div>
+  </div>
+  <img src="img/tugas.svg" alt="Ilustrasi tugas" style="background:linear-gradient(135deg,#2563EB,#2563EB);border-radius:28px;padding:10px">
+</div></section>
+
+<main class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="ic" style="background:#DBEAFE">📋</div><div><b id="c1">0</b><small>Total tugas</small></div></div>
+    <div class="stat"><div class="ic" style="background:#d9fbef">✅</div><div><b id="c2">0</b><small id="l2">Sudah dikumpulkan</small></div></div>
+    <div class="stat"><div class="ic" style="background:#fff3d6">⏳</div><div><b id="c3">0</b><small id="l3">Belum dikumpulkan</small></div></div>
+    <div class="stat"><div class="ic" style="background:#ffe3e3">⚠️</div><div><b id="c4">0</b><small id="l4">Terlewat</small></div></div>
+  </div>
+
+  <div class="sec-t"><h2>Daftar <span>Tugas</span></h2></div>
+  <div class="toolbar">
+    <div class="tabs" id="tabs">
+      <button class="on" data-f="all">Semua</button>
+      <button data-f="todo">Belum</button>
+      <button data-f="done">Terkumpul</button>
+      <button data-f="late">Terlewat</button>
+    </div>
+    <div class="search"><input id="q" placeholder="Cari tugas atau mata kuliah…"></div>
+  </div>
+  <div class="grid" id="tasks"></div>
+
+  <div class="sec-t"><h2 id="histTitle">Riwayat <span>Pengumpulan</span></h2><button class="btn red sm" id="clearAll">🗑 Hapus semua riwayat</button></div>
+  <div class="hist" id="hist"></div>
+</main>
+
+<footer><div class="wrap"><b>KelasHub</b> · Kelas &amp; mata kuliah dikelola admin · <a href="materi.html" style="color:#93C5FD">Menuju halaman Materi →</a></div></footer>
+
+<!-- Modal kumpulkan -->
+<div class="ov" id="mSubmit"><div class="modal">
+  <h3>📤 Kumpulkan Tugas</h3>
+  <p class="sub" id="mSubTitle"></p>
+  <form id="fSubmit">
+    <div class="two">
+      <div class="fg"><label>Nama lengkap *</label><input name="name" required placeholder="Nama kamu"></div>
+      <div class="fg"><label>NIM / Kelas *</label><input name="nim" required placeholder="Contoh: 2301234"></div>
+    </div>
+    <div class="fg"><label>Catatan (opsional)</label><textarea name="note" placeholder="Pesan untuk dosen/guru…"></textarea></div>
+    <div class="fg"><label>File tugas *</label>
+      <div class="drop" id="dz"><span class="big-e">☁️</span><b>Seret file ke sini</b> atau klik untuk memilih<br><small>PDF, DOCX, ZIP, gambar, dll. (maks 10 MB)</small><b class="fn" id="fn"></b></div>
+      <input type="file" id="file" hidden>
+    </div>
+    <div class="macts"><button type="button" class="btn sec sm" data-close="mSubmit">Batal</button><button class="btn sm" type="submit">Kirim Tugas 🚀</button></div>
+  </form>
+</div></div>
+
+<!-- Pop-up sukses (hanya muncul setelah berhasil mengumpulkan) -->
+<div class="ov" id="mOk"><div class="modal ok-modal">
+  <img src="img/07-sukses-ngumpulin.jpg" alt="Ilustrasi berhasil mengumpulkan tugas" width="600" height="400" loading="lazy">
+  <h3>Tugas Terkumpul! 🎉</h3>
+  <p class="sub">Kerja bagus, tugasmu sudah terkirim ke dosen.</p>
+  <div class="macts"><button type="button" class="btn" data-close="mOk">Siap!</button></div>
+</div></div>
+
+<!-- Modal tugas baru -->
+<div class="ov" id="mNew"><div class="modal">
+  <h3>📤 Kirim Tugas Baru</h3>
+  <p class="sub">Tugas ini akan muncul di semua mahasiswa kelas ini, lengkap dengan file soalnya.</p>
+  <form id="fNew">
+    <div class="fg"><label>Judul tugas *</label><input name="title" required placeholder="Contoh: Laporan Praktikum 3"></div>
+    <div class="two">
+      <div class="fg"><label>Mata kuliah *</label><select name="course" id="selCourse" required></select></div>
+      <div class="fg"><label>Deadline *</label><input type="datetime-local" name="deadline" required></div>
+    </div>
+    <div class="fg"><label>Ikon</label>
+      <select name="emoji"><option>📝</option><option>📊</option><option>💻</option><option>🔬</option><option>🎨</option><option>📖</option><option>🧮</option><option>🌐</option></select>
+    </div>
+    <div class="fg"><label>Deskripsi</label><textarea name="desc" placeholder="Instruksi singkat tugas…"></textarea></div>
+    <div class="fg"><label>File tugas / soal (opsional)</label>
+      <div class="drop" id="dz2"><span class="big-e">📎</span><b>Seret file ke sini</b> atau klik untuk memilih<br><small>PDF, DOCX, PPTX, ZIP, gambar, dll. Mahasiswa bisa mengunduhnya. (maks 10 MB)</small><b class="fn" id="fn2"></b></div>
+      <input type="file" id="file2" hidden>
+    </div>
+    <div class="macts"><button type="button" class="btn sec sm" data-close="mNew">Batal</button><button class="btn sm" type="submit">Kirim ke Mahasiswa 🚀</button></div>
+  </form>
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/tugas.js"></script>
+</body>
+</html>

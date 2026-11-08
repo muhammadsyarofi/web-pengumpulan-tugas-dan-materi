@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard Dosen — KelasHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="blobs"><span></span><span></span><span></span></div>
+
+<nav class="nav"><div class="wrap">
+  <a href="login.html" class="logo"><i>🎓</i><span>Kelas<b>Hub</b></span></a>
+  <button class="burger" aria-label="Menu">☰</button>
+  <div class="links"></div>
+</div></nav>
+
+<section class="phead"><div class="wrap">
+  <div>
+    <span class="tag">👩‍🏫 Dashboard Dosen</span>
+    <h1>Kelas yang <span class="grad">Kamu Ampu</span></h1>
+    <p>Gabung ke kelas memakai kode dari admin. Kamu mengelola tugas dan materi hanya di mata kuliah yang ditunjuk admin sebagai tanggung jawabmu.</p>
+  </div>
+  <img src="img/kelas.svg" alt="Ilustrasi kelas" style="background:linear-gradient(135deg,#16A34A,#2563EB);border-radius:28px;padding:10px">
+</div></section>
+
+<main class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="ic" style="background:#DBEAFE">🏫</div><div><b id="s1">0</b><small>Kelas diikuti</small></div></div>
+    <div class="stat"><div class="ic" style="background:#d9fbef">🎓</div><div><b id="s2">0</b><small>Mata kuliah diampu</small></div></div>
+    <div class="stat"><div class="ic" style="background:#fff3d6">📝</div><div><b id="s3">0</b><small>Tugas dikirim</small></div></div>
+    <div class="stat"><div class="ic" style="background:#e6efff">📥</div><div><b id="s4">0</b><small>Pengumpulan masuk</small></div></div>
+  </div>
+
+  <div class="panel noSub hide" id="noSub">
+    <div class="empty empty-dosen" style="padding:10px">
+      <img src="img/04-dashboard-dosen.jpg" alt="Ilustrasi dosen memeriksa kalender" width="750" height="500" loading="lazy">
+      <b>Belum ada yang mengumpulkan</b><br>Tugas yang dikirim mahasiswa akan muncul di sini.
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:22px">
+    <h3>🔑 Gabung dengan Kode</h3>
+    <p class="sub">Admin membagikan kode kelas 6 karakter. Mata kuliah yang kamu ampu di kelas itu ditentukan admin, jadi satu kelas tidak akan dobel.</p>
+    <form id="fJoin" style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+      <div class="fg" style="margin:0;flex:1;min-width:220px"><label>Kode kelas</label><input name="code" required maxlength="6" minlength="6" placeholder="Contoh: K7M2QX" style="text-transform:uppercase;letter-spacing:.2em;font-weight:700"></div>
+      <button class="btn green" type="submit">Gabung Kelas →</button>
+    </form>
+  </div>
+
+  <div class="sec-t"><h2>Kelas <span>Saya</span></h2></div>
+  <div class="cgrid" id="list"></div>
+</main>
+
+<footer><div class="wrap"><b>KelasHub</b> · Kelas &amp; mata kuliah dikelola admin</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/dosen.js"></script>
+</body>
+</html>

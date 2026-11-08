@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KelasHub — Pengumpulan Tugas & Materi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="blobs"><span></span><span></span><span></span></div>
+
+<nav class="nav"><div class="wrap">
+  <a href="index.html" class="logo"><i>🎓</i><span>Kelas<b>Hub</b></span></a>
+  <button class="burger" aria-label="Menu">☰</button>
+  <div class="links"></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div>
+    <span class="tag" id="hi">✨ Belajar jadi lebih seru & rapi</span>
+    <h1>Kumpulkan <span class="grad">Tugas</span> &amp; Bagikan <span class="grad">Materi</span> dengan Mudah</h1>
+    <p>Satu tempat untuk mengirim tugas sebelum deadline dan berbagi materi kuliah bersama teman sekelas. Tugas dan materi dipisah supaya tidak membingungkan.</p>
+    <div class="cta">
+      <a href="tugas.html" class="btn">📝 Kumpulkan Tugas</a>
+      <a href="materi.html" class="btn sec">📚 Lihat Materi</a>
+    </div>
+  </div>
+  <img class="hero-img" src="img/hero.svg" alt="Ilustrasi belajar online">
+</div></header>
+
+<main class="wrap">
+  <div class="panel" id="clsBanner" style="margin-bottom:22px"></div>
+  <div class="stats rv">
+    <div class="stat"><div class="ic" style="background:#DBEAFE">📋</div><div><b id="sTasks">0</b><small>Tugas aktif</small></div></div>
+    <div class="stat"><div class="ic" style="background:#d9fbef">✅</div><div><b id="sSubs">0</b><small id="lSubs">Tugas terkumpul</small></div></div>
+    <div class="stat"><div class="ic" style="background:#e6efff">📚</div><div><b id="sMats">0</b><small>Materi dibagikan</small></div></div>
+    <div class="stat"><div class="ic" style="background:#ffe9f1">🎓</div><div><b id="sCourses">0</b><small>Mata kuliah</small></div></div>
+  </div>
+
+  <div class="sec-t rv"><h2>Mau ke <span>mana</span> hari ini?</h2></div>
+  <div class="duo rv">
+    <a href="tugas.html" class="big a">
+      <img src="img/tugas.svg" alt="Ilustrasi tugas">
+      <h3>Pengumpulan Tugas</h3>
+      <p>Lihat deadline, hitung mundur, dan kirim file tugasmu.</p>
+      <span class="go">Buka Tugas →</span>
+    </a>
+    <a href="materi.html" class="big b">
+      <img src="img/materi.svg" alt="Ilustrasi materi">
+      <h3>Pengumpulan Materi</h3>
+      <p>Unggah dan unduh slide, modul, video, serta catatan kuliah.</p>
+      <span class="go" style="color:#00997a">Buka Materi →</span>
+    </a>
+  </div>
+
+  <div class="sec-t rv"><h2>Mata <span>Kuliah</span></h2><a class="btn sec sm" href="matakuliah.html">Lihat semua →</a></div>
+  <div class="chips rv" id="chips"></div>
+
+  <div class="sec-t rv"><h2>Cara <span>kerjanya</span></h2></div>
+  <div class="steps rv">
+    <div class="step"><em>1</em><div class="e">🔎</div><h4>Pilih halaman</h4><p>Masuk ke Tugas untuk mengumpulkan pekerjaan, atau ke Materi untuk berbagi bahan belajar.</p></div>
+    <div class="step"><em>2</em><div class="e">📤</div><h4>Unggah file</h4><p>Seret &amp; lepas file ke kotak unggah, isi data, lalu kirim. Bisa juga lewat tautan.</p></div>
+    <div class="step"><em>3</em><div class="e">🎉</div><h4>Selesai!</h4><p>Riwayatmu tersimpan rapi. Unduh atau hapus kapan saja dari halaman masing-masing.</p></div>
+  </div>
+
+  <div class="sec-t rv"><h2>Aktivitas <span>terbaru</span></h2></div>
+  <ul class="feed rv" id="feed"></ul>
+</main>
+
+<footer><div class="wrap"><b>KelasHub</b> · Kelas &amp; mata kuliah dikelola admin · Dibuat dengan ❤️ untuk kelas yang lebih seru</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script>
+boot(async () => {
+  $('#hi').textContent = `👋 Halo, ${ME.name.split(' ')[0]}! · 🏫 ${CLS.name}`;
+
+  const [t, sb2, m] = await Promise.all([
+    sb.from('tasks').select('id,title,deadline,created_at,course_id').eq('class_id', CID).order('created_at', { ascending: false }),
+    sb.from('submissions').select('id,task_id,name,created_at').eq('class_id', CID).order('created_at', { ascending: false }).limit(50),
+    sb.from('materials').select('id,title,author_name,created_at').eq('class_id', CID).order('created_at', { ascending: false })
+  ]);
+  // dosen hanya melihat tugas di mata kuliah yang ia ampu (RLS sudah membatasi pengumpulan)
+  const tasks = must(t).filter(x => !isDosen() || isMine(x.course_id)), subs = must(sb2), mats = must(m);
+  const pengampu = [...new Set(COURSES.map(c => c.dosen_id).filter(Boolean).map(id => DOSEN[id]).filter(Boolean))];
+
+  /* ---- banner kelas + aksi cepat sesuai peran ---- */
+  if (isDosen()) {
+    const mine = myCourses();
+    $('#clsBanner').innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+      <div><h3>${esc(CLS.emoji)} ${esc(CLS.name)}</h3><p class="sub" style="margin:0 0 8px">${esc(CLS.descr || 'Kelas yang kamu ikuti')}</p>
+        ${mine.length
+          ? `<small style="color:var(--mut);font-weight:600">Mata kuliah yang kamu ampu</small><div class="chips" style="margin-top:6px;gap:6px">${mine.map(x => `<span class="badge p">${esc(x.emoji)} ${esc(x.name)}</span>`).join('')}</div>`
+          : `<span class="badge wait">⏳ Kamu belum ditunjuk sebagai pengampu mata kuliah di kelas ini</span><br><small style="color:var(--mut)">Hubungi admin untuk ditunjuk sebagai pengampu.</small>`}</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        ${mine.length ? '<a class="btn" href="tugas.html?new=1">📤 Kirim Tugas</a>' : ''}
+        <a class="btn sec" href="materi.html">📚 Materi</a>
+        <a class="btn sec" href="matakuliah.html">🎓 Mata Kuliah</a>
+      </div></div>`;
+    $('.hero h1').innerHTML = 'Kelola <span class="grad">Mata Kuliahmu</span>, Kirim <span class="grad">Tugas</span>';
+    $('.hero p').textContent = 'Kirim tugas beserta file soal di mata kuliah yang kamu ampu, lalu pantau pengumpulan dari mahasiswa.';
+    $('.hero .cta').innerHTML = (mine.length ? '<a href="tugas.html?new=1" class="btn">📤 Kirim Tugas Baru</a>' : '') + '<a href="matakuliah.html" class="btn sec">🎓 Lihat Mata Kuliah</a>';
+    $('.steps').innerHTML = `<div class="step"><em>1</em><div class="e">🎓</div><h4>Cek mata kuliahmu</h4><p>Mata kuliah dan pengampunya ditentukan admin. Kamu hanya mengelola yang kamu ampu.</p></div>
+      <div class="step"><em>2</em><div class="e">📤</div><h4>Kirim tugas &amp; file</h4><p>Buat tugas, pilih mata kuliah, atur deadline, lalu lampirkan file soal.</p></div>
+      <div class="step"><em>3</em><div class="e">📥</div><h4>Pantau pengumpulan</h4><p>Lihat dan unduh tugas yang dikirim mahasiswa dari halaman Tugas.</p></div>`;
+  } else {
+    $('#clsBanner').innerHTML = `<h3>${esc(CLS.emoji)} ${esc(CLS.name)}</h3><p class="sub" style="margin:0">${esc(CLS.descr || 'Kelas yang kamu ikuti')} · 👩‍🏫 ${esc(pengampu.join(', ') || 'Belum ada pengampu')}</p>`;
+  }
+
+  /* ---- statistik ---- */
+  $('#lSubs').textContent = isDosen() ? 'Pengumpulan masuk' : 'Tugas terkumpul';
+  countUp($('#sTasks'), tasks.filter(x => new Date(x.deadline) > Date.now()).length);
+  countUp($('#sSubs'), subs.length);
+  countUp($('#sMats'), mats.length);
+  countUp($('#sCourses'), COURSES.length);
+
+  $('#chips').innerHTML = COURSES.length
+    ? COURSES.map(c => `<a class="chip" href="matakuliah.html" style="border-left:5px solid ${esc(c.color)}">${esc(c.emoji)} ${esc(c.name)}</a>`).join('')
+    : `<div class="note" style="margin:0;width:100%">Belum ada mata kuliah. Admin yang akan menambahkannya.</div>`;
+
+  const items = [
+    ...subs.map(x => ({ t: x.created_at, ic: '✅', bg: '#d9fbef', txt: `<b>${esc(x.name)}</b> mengumpulkan tugas <b>${esc((tasks.find(k => k.id === x.task_id) || {}).title || 'Tugas')}</b>` })),
+    ...mats.map(x => ({ t: x.created_at, ic: '📚', bg: '#e6efff', txt: `<b>${esc(x.author_name)}</b> membagikan materi <b>${esc(x.title)}</b>` })),
+    ...tasks.map(x => ({ t: x.created_at, ic: '📝', bg: '#DBEAFE', txt: `Tugas baru: <b>${esc(x.title)}</b>` }))
+  ].sort((a, b) => new Date(b.t) - new Date(a.t)).slice(0, 7);
+  $('#feed').innerHTML = items.length
+    ? items.map(i => `<li><div class="dot" style="background:${i.bg}">${i.ic}</div><div>${i.txt}<small>${ago(i.t)}</small></div></li>`).join('')
+    : `<li style="display:block"><div class="empty"><img src="img/empty.svg" alt=""><b>Belum ada aktivitas</b><br>Aktivitas tugas dan materi akan muncul di sini.</div></li>`;
+});
+</script>
+</body>
+</html>

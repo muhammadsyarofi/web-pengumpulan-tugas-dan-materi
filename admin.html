@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard Admin — KelasHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="blobs"><span></span><span></span><span></span></div>
+
+<nav class="nav"><div class="wrap">
+  <a href="login.html" class="logo"><i>🎓</i><span>Kelas<b>Hub</b></span></a>
+  <button class="burger" aria-label="Menu">☰</button>
+  <div class="links"></div>
+</div></nav>
+
+<section class="phead"><div class="wrap">
+  <div>
+    <span class="tag">🛡️ Dashboard Admin</span>
+    <h1>Kelola <span class="grad">Kelas</span> &amp; Mata Kuliah</h1>
+    <p>Hanya admin yang membuat kelas dan mata kuliah. Tunjuk dosen pengampu tiap mata kuliah, lalu bagikan <b>kode kelas</b> ke mahasiswa dan dosen agar semua masuk ke kelas yang sama.</p>
+  </div>
+  <img src="img/kelas.svg" alt="Ilustrasi kelas" style="background:linear-gradient(135deg,#16A34A,#2563EB);border-radius:28px;padding:10px">
+</div></section>
+
+<main class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="ic" style="background:#DBEAFE">🏫</div><div><b id="s1">0</b><small>Kelas</small></div></div>
+    <div class="stat"><div class="ic" style="background:#fff3d6">🎓</div><div><b id="s2">0</b><small>Mata kuliah</small></div></div>
+    <div class="stat"><div class="ic" style="background:#d9fbef">🎒</div><div><b id="s3">0</b><small>Akun mahasiswa</small></div></div>
+    <div class="stat"><div class="ic" style="background:#e6efff">👩‍🏫</div><div><b id="s4">0</b><small>Akun dosen</small></div></div>
+  </div>
+
+  <div class="panel" style="margin-top:22px">
+    <h3>✨ Buat Kelas Baru</h3>
+    <p class="sub">Nama kelas harus unik. Kode kelas dibuat otomatis — bagikan ke mahasiswa dan dosen kelas ini. Mata kuliah &amp; pengampu ditambahkan lewat tombol <b>Kelola</b>.</p>
+    <form id="fNew" class="formrow" style="box-shadow:none;border:0;padding:0;margin:0;grid-template-columns:2fr 2fr 90px 90px auto">
+      <div class="fg"><label>Nama kelas *</label><input name="name" required maxlength="40" placeholder="Contoh: TI-3A Pagi"></div>
+      <div class="fg"><label>Deskripsi</label><input name="desc" maxlength="80" placeholder="Semester 3 · Teknik Informatika"></div>
+      <div class="fg"><label>Ikon</label><select name="emoji"><option>🏫</option><option>💻</option><option>📚</option><option>🔬</option><option>🎨</option><option>🧮</option><option>🌍</option><option>⚽</option></select></div>
+      <div class="fg"><label>Warna</label><input type="color" name="color" value="#2563EB"></div>
+      <button class="btn" type="submit">＋ Buat Kelas</button>
+    </form>
+  </div>
+
+  <div class="sec-t"><h2>Semua <span>Kelas</span></h2></div>
+  <div class="cgrid" id="list"></div>
+</main>
+
+<footer><div class="wrap"><b>KelasHub</b> · Kelas &amp; mata kuliah dikelola admin</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

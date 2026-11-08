@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 300">
+  <defs><linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#e8e6fa"/></linearGradient></defs>
+  <circle cx="170" cy="150" r="120" fill="#fff" opacity=".15"/>
+  <!-- clipboard -->
+  <rect x="80" y="40" width="170" height="220" rx="18" fill="url(#a)"/>
+  <rect x="125" y="28" width="80" height="30" rx="10" fill="#fdcb6e"/>
+  <circle cx="165" cy="42" r="6" fill="#fff"/>
+  <g stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="5">
+    <path d="M104 98l9 9 16-18" stroke="#00b894"/><path d="M104 140l9 9 16-18" stroke="#00b894"/><path d="M104 182l9 9 16-18" stroke="#fdb23e"/>
+  </g>
+  <rect x="142" y="94" width="86" height="9" rx="4.5" fill="#6c5ce7"/><rect x="142" y="110" width="56" height="7" rx="3.5" fill="#cfcaf7"/>
+  <rect x="142" y="136" width="86" height="9" rx="4.5" fill="#6c5ce7"/><rect x="142" y="152" width="66" height="7" rx="3.5" fill="#cfcaf7"/>
+  <rect x="142" y="178" width="86" height="9" rx="4.5" fill="#6c5ce7"/><rect x="142" y="194" width="46" height="7" rx="3.5" fill="#cfcaf7"/>
+  <rect x="104" y="222" width="124" height="22" rx="11" fill="#6c5ce7"/><text x="166" y="238" font-family="Arial" font-weight="700" font-size="11" fill="#fff" text-anchor="middle">KUMPULKAN</text>
+  <!-- clock -->
+  <circle cx="252" cy="212" r="38" fill="#ff7675"/><circle cx="252" cy="212" r="30" fill="#fff"/>
+  <path d="M252 192v21l14 8" stroke="#2d2766" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <!-- paper plane -->
+  <path d="M30 80l78-34-26 62-14-22z" fill="#74b9ff"/><path d="M68 86l14 22 26-62z" fill="#0984e3" opacity=".6"/>
+  <g fill="#fdcb6e"><circle cx="40" cy="190" r="6"/><circle cx="270" cy="70" r="5"/><path d="M280 130l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></g>
+</svg>

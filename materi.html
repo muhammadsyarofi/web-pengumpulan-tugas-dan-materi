@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pengumpulan Materi — KelasHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="blobs"><span></span><span></span><span></span></div>
+
+<nav class="nav"><div class="wrap">
+  <a href="index.html" class="logo"><i>🎓</i><span>Kelas<b>Hub</b></span></a>
+  <button class="burger" aria-label="Menu">☰</button>
+  <div class="links"></div>
+</div></nav>
+
+<section class="phead"><div class="wrap">
+  <div>
+    <span class="tag">📚 Halaman Materi</span>
+    <h1>Pengumpulan <span class="grad">Materi</span></h1>
+    <p>Bagikan slide, modul, video, dan catatan kuliah. Cari, saring, suka, lalu unduh materi dari teman-temanmu.</p>
+    <div class="cta"><button class="btn green" id="btnUp">☁️ Unggah Materi</button></div>
+  </div>
+  <img src="img/materi.svg" alt="Ilustrasi materi" style="background:linear-gradient(135deg,#16A34A,#2563EB);border-radius:28px;padding:10px">
+</div></section>
+
+<main class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="ic" style="background:#e6efff">📚</div><div><b id="c1">0</b><small>Total materi</small></div></div>
+    <div class="stat"><div class="ic" style="background:#DBEAFE">🎓</div><div><b id="c2">0</b><small>Mata kuliah</small></div></div>
+    <div class="stat"><div class="ic" style="background:#fff3d6">💾</div><div><b id="c3">0</b><small>File tersimpan</small></div></div>
+    <div class="stat"><div class="ic" style="background:#ffe9f1">❤️</div><div><b id="c4">0</b><small>Total suka</small></div></div>
+  </div>
+
+  <div class="sec-t"><h2>Pustaka <span>Materi</span></h2></div>
+  <div class="toolbar">
+    <div class="tabs" id="tabs">
+      <button class="on" data-f="all">Semua</button>
+      <button data-f="Slide">Slide</button>
+      <button data-f="Modul">Modul</button>
+      <button data-f="Video">Video</button>
+      <button data-f="Catatan">Catatan</button>
+      <button data-f="Link">Link</button>
+    </div>
+    <div class="search"><input id="q" placeholder="Cari judul, mata kuliah, atau pengunggah…"></div>
+  </div>
+  <div class="grid" id="mats"></div>
+</main>
+
+<footer><div class="wrap"><b>KelasHub</b> · Kelas &amp; mata kuliah dikelola admin · <a href="tugas.html" style="color:#93C5FD">Menuju halaman Tugas →</a></div></footer>
+
+<!-- Modal unggah materi -->
+<div class="ov" id="mUp"><div class="modal">
+  <h3>☁️ Unggah Materi</h3>
+  <p class="sub">Bagikan bahan belajar untuk teman sekelas.</p>
+  <form id="fUp">
+    <div class="fg"><label>Judul materi *</label><input name="title" required placeholder="Contoh: Ringkasan Bab 3 Pemrograman Web"></div>
+    <div class="two">
+      <div class="fg"><label>Mata kuliah *</label><select name="course" id="selCourse" required></select></div>
+      <div class="fg"><label>Kategori</label>
+        <select name="cat"><option>Slide</option><option>Modul</option><option>Video</option><option>Catatan</option><option>Link</option></select></div>
+    </div>
+    <div class="fg"><label>Nama pengunggah</label><input name="author" readonly></div>
+    <div class="fg"><label>Deskripsi</label><textarea name="desc" placeholder="Isi singkat materi…"></textarea></div>
+    <div class="fg"><label>File materi</label>
+      <div class="drop" id="dz"><span class="big-e">📂</span><b>Seret file ke sini</b> atau klik untuk memilih<br><small>PDF, PPTX, DOCX, ZIP, MP4, dll.</small><b class="fn" id="fn"></b></div>
+      <input type="file" id="file" hidden>
+    </div>
+    <div class="fg"><label>…atau tempel tautan (Drive / YouTube)</label><input name="link" type="url" placeholder="https://"></div>
+    <div class="macts"><button type="button" class="btn sec sm" data-close="mUp">Batal</button><button class="btn green sm" type="submit">Bagikan Materi 🚀</button></div>
+  </form>
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/materi.js"></script>
+</body>
+</html>

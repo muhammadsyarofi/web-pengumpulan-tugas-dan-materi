@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Masuk — KelasHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="auth">
+  <!-- Kiri: Masuk = foto asli perpus -->
+  <div class="auth-photo" id="paneIn">
+    <img class="bg" src="img/00-login-perpus.jpg" alt="Tiga mahasiswi belajar bersama di perpustakaan" width="900" height="600" fetchpriority="high">
+    <a class="logo" href="landing.html"><i>🎓</i><span>Kelas<b>Hub</b></span></a>
+    <h2>Belajar Bareng Jadi Lebih Mudah</h2>
+  </div>
+  <!-- Kiri: Daftar = ilustrasi -->
+  <div class="auth-art hide" id="paneUp">
+    <a class="logo" href="landing.html"><i>🎓</i><span>Kelas<b>Hub</b></span></a>
+    <div class="txt"><h2>Tugas &amp; materi kuliah, rapi dalam satu tempat.</h2><p>Buat akun untuk mengumpulkan tugas, berbagi materi, dan mengelola mata kuliah.</p></div>
+    <div class="art"><img src="img/01-register-dadah.jpg" alt="Ilustrasi mahasiswa melambaikan tangan sambil membawa laptop" width="790" height="1067"></div>
+  </div>
+
+  <div class="auth-r">
+    <div class="abox">
+      <h1 id="ttl">Selamat datang 👋</h1>
+      <p style="color:var(--mut);font-size:.9rem" id="sub">Masuk ke akunmu untuk melanjutkan.</p>
+
+      <div class="tabs" id="tabs"><button class="on" data-t="in">Masuk</button><button data-t="up">Daftar</button></div>
+
+      <form id="fIn">
+        <div class="fg"><label>Username</label><input name="u" required autocomplete="username" placeholder="username kamu"></div>
+        <div class="fg"><label>Password</label><input name="p" type="password" required autocomplete="current-password" placeholder="••••••••"></div>
+        <p class="err" id="eIn"></p>
+        <button class="btn" style="width:100%;justify-content:center">Masuk 🚀</button>
+      </form>
+
+      <form id="fUp" class="hide">
+        <div class="fg"><label>Nama lengkap *</label><input name="name" required placeholder="Nama kamu"></div>
+        <div class="two">
+          <div class="fg"><label>Username *</label><input name="u" required pattern="[A-Za-z0-9_.]{3,20}" title="3-20 karakter: huruf, angka, _ atau ." autocomplete="username"></div>
+          <div class="fg"><label id="lblId">NIM</label><input name="nim" id="inId" placeholder="Contoh: 2301234"></div>
+        </div>
+        <div class="fg"><label>Daftar sebagai</label>
+          <div class="roles">
+            <label><input type="radio" name="role" value="mahasiswa" checked><span>🎒 Mahasiswa<small>Gabung kelas dengan kode dari admin &amp; kumpul tugas</small></span></label>
+            <label><input type="radio" name="role" value="dosen"><span>👩‍🏫 Dosen<small>Gabung kelas dengan kode dari admin, kirim tugas &amp; materi</small></span></label>
+          </div>
+          <small style="color:var(--mut);display:block;margin-top:8px">Akun Admin dibuat oleh pengelola sistem, bukan lewat pendaftaran.</small>
+        </div>
+        <div class="two">
+          <div class="fg"><label>Password *</label><input name="p" type="password" required minlength="6" autocomplete="new-password"></div>
+          <div class="fg"><label>Ulangi password *</label><input name="p2" type="password" required autocomplete="new-password"></div>
+        </div>
+        <p class="err" id="eUp"></p>
+        <button class="btn" style="width:100%;justify-content:center">Buat Akun ✨</button>
+      </form>
+
+      <p style="color:var(--mut);font-size:.75rem;margin-top:16px;text-align:center">Akun dan data kelas tersimpan di server (Supabase), jadi bisa dibuka dari perangkat mana pun.</p>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script>
+boot(() => {
+  $('#tabs').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    $$('#tabs button').forEach(x => x.classList.toggle('on', x === b));
+    const up = b.dataset.t === 'up';
+    $('#fIn').classList.toggle('hide', up); $('#fUp').classList.toggle('hide', !up);
+    $('#paneIn').classList.toggle('hide', up); $('#paneUp').classList.toggle('hide', !up);
+    $('#ttl').textContent = up ? 'Buat akun baru ✨' : 'Selamat datang 👋';
+    $('#sub').textContent = up ? 'Gratis dan hanya butuh satu menit.' : 'Masuk ke akunmu untuk melanjutkan.';
+  });
+
+  $$('#fUp input[name=role]').forEach(r => r.addEventListener('change', () => {
+    const d = r.value === 'dosen' && r.checked; if (!r.checked) return;
+    $('#lblId').textContent = d ? 'NIDN / NIP' : 'NIM';
+    $('#inId').placeholder = d ? 'Contoh: 0412038801' : 'Contoh: 2301234';
+  }));
+
+  const busy = (f, on, txt) => { const b = f.querySelector('button:not([type=button])'); if (!b) return; if (on) { b.dataset.t = b.textContent; b.textContent = txt; } else b.textContent = b.dataset.t; b.disabled = on; };
+
+  $('#fIn').addEventListener('submit', async e => {
+    e.preventDefault(); const f = e.target; $('#eIn').textContent = ''; busy(f, true, 'Masuk…');
+    const { data, error } = await sb.auth.signInWithPassword({ email: Auth.email(f.u.value), password: f.p.value });
+    busy(f, false);
+    if (error) { $('#eIn').textContent = /invalid login/i.test(error.message) ? 'Username atau password salah.' : error.message; return; }
+    const { data: prof } = await sb.from('profiles').select('role').eq('id', data.user.id).maybeSingle();
+    location.href = homeOf(prof);
+  });
+
+  $('#fUp').addEventListener('submit', async e => {
+    e.preventDefault(); const f = e.target, err = $('#eUp'); err.textContent = '';
+    const username = f.u.value.trim().toLowerCase();
+    if (f.p.value !== f.p2.value) { err.textContent = 'Password dan ulangi password tidak sama.'; return; }
+    busy(f, true, 'Membuat akun…');
+    const { data, error } = await sb.auth.signUp({
+      email: Auth.email(username), password: f.p.value,
+      options: { data: { username, name: f.name.value.trim(), nim: f.nim.value.trim(), role: f.role.value } }
+    });
+    busy(f, false);
+    if (error) { err.textContent = /already registered/i.test(error.message) ? 'Username sudah dipakai, coba yang lain.' : error.message; return; }
+    if (!data.session) { err.textContent = 'Akun dibuat, tetapi konfirmasi email masih aktif di Supabase. Matikan "Confirm email" di Authentication > Providers > Email.'; return; }
+    location.href = homeOf({ role: f.role.value });
+  });
+});
+</script>
+</body>
+</html>
